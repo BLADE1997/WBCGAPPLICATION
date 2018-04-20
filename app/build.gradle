@@ -30,4 +30,5 @@ dependencies {
     //Google play services
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
     implementation 'com.google.android.gms:play-services-location:11.8.0'
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 }

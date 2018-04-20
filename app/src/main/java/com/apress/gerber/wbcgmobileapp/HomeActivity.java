@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -149,11 +151,11 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_search) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_route) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_news) {
 
         } else if (id == R.id.nav_share) {
 
@@ -172,9 +174,13 @@ public class HomeActivity extends AppCompatActivity
         Toast.makeText(this, "MAP IS READY", Toast.LENGTH_SHORT).show();
         //Log.d(TAG, "onMapReady: MAP IS READY");
         mMap = googleMap;
-        gotoLocationZoom(-22.565702, 17.077195, 17);
-
-
+        LatLng pp = new LatLng(-22.934840,14.513995);
+        gotoLocationZoom(pp, 15);
+        MarkerOptions option = new MarkerOptions();
+        option.position(pp).title("Walvis Bay");
+        option.icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_wbcgc));
+        mMap.addMarker(option);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(pp));
         if (mLocationPermissionGranted) {
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -187,8 +193,8 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void gotoLocationZoom(double lat, double lng, float zoom) {
-        LatLng ll = new LatLng(lat, lng);
+    private void gotoLocationZoom(LatLng pp, float zoom) {
+        LatLng ll = pp;
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(ll, zoom);
         mMap.moveCamera(update);
     }
